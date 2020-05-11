@@ -5,6 +5,7 @@
 
 trigger:
 - master
+
 resources:
 - repo: self
 pool:
@@ -18,7 +19,6 @@ steps:
     echo Add other tasks to build, test, and deploy your project.
     echo See https://aka.ms/yaml
   displayName: 'Run a multi-line script'
-
 variables:
   dockerfilePath: '$(Build.SourcesDirectory)/src/Dockerfile'
   webRepository: 'web'
@@ -42,8 +42,7 @@ stages:
   inputs:
     options: '-DskipITs --settings ./maven/settings.xml'
     publishJUnitResults: false
-
- -task: CopyFiles@2
+- task: CopyFiles@2
   displayName: Copy WAR file to staging directory
   inputs:
     sourceFolder: '$(build.sourcesdirectory)'
@@ -51,7 +50,8 @@ stages:
       target/myshuttledev*.war
       *.sql
     targetFolder: '$(build.artifactstagingdirectory)'
--task: Docker@2
+
+- task: Docker@2
   displayName: Build and push Java container image to registry
   inputs:
     command: buildAndPush
@@ -61,7 +61,6 @@ stages:
     containerRegistry: 'Container Registry Connection'
     tags: |
       $(tag)
-
 
 - task: AzureMysqlDeployment@1
   displayName: Run MySQL initialization script
@@ -73,7 +72,7 @@ stages:
     sqlPassword: $(MySqlPassword)
     sqlFile: '$(Build.SourcesDirectory)/CreateMYSQLDB.sql'
 
-    - stage: Deploy
+- stage: Deploy
   displayName: 'Deploy Web App'
   dependsOn: Build
   condition: succeeded()
@@ -88,17 +87,15 @@ stages:
       runOnce:
         deploy:
           steps:
-
-
-          - task: AzureWebAppContainer@1
+        
+- task: AzureWebAppContainer@1
   displayName: Update the web app with the new container
   inputs:
     appName: $(WebAppName)
     azureSubscription: 'Azure Connection'
     imageName: $(RegistryName)/$(webRepository):$(build.buildId)
 
-
-    - task: AzureAppServiceSettings@1
+- task: AzureAppServiceSettings@1
   displayName: Update web app connection string
   inputs:
     azureSubscription: 'Azure Connection'
