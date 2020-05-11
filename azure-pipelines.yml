@@ -44,7 +44,7 @@ stages:
     publishJUnitResults: false
 
     - task: CopyFiles@2
-  displayName: Copy WAR file to staging directory
+displayName: Copy WAR file to staging directory
   inputs:
     sourceFolder: '$(build.sourcesdirectory)'
     contents: |
@@ -52,7 +52,7 @@ stages:
       *.sql
     targetFolder: '$(build.artifactstagingdirectory)'
 
-- task: Docker@2
+-task: Docker@2
   displayName: Build and push Java container image to registry
   inputs:
     command: buildAndPush
@@ -64,7 +64,6 @@ stages:
       $(tag)
 
 
-Copy
 - task: AzureMysqlDeployment@1
   displayName: Run MySQL initialization script
   inputs:
