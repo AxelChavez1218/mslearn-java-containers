@@ -38,7 +38,7 @@ stages:
     - group: Release
     steps:
     - task: Maven@3
-  displayName: 'Maven pom.xml'
+      displayName: 'Maven pom.xml'
   inputs:
     options: '-DskipITs --settings ./maven/settings.xml'
     publishJUnitResults: false
@@ -88,7 +88,7 @@ stages:
           steps:
     
   - task: AzureWebAppContainer@1
-  displayName: Update the web app with the new container
+    displayName: Update the web app with the new container
   inputs:
     appName: $(WebAppName)
     azureSubscription: 'Azure Connection'
