@@ -27,11 +27,9 @@ variables:
   vmImageName: 'ubuntu-latest'
 
 stages:
-
-
-- stage: Build
-  displayName: Build and publish Java container
-  jobs:  
+ - stage: Build
+   displayName: Build and publish Java container
+   jobs:  
   - job: Build
     displayName: Build
     pool:
