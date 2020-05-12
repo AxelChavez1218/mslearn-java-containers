@@ -29,15 +29,15 @@ variables:
 stages:
  - stage: Build
    displayName: Build and publish Java container
-   jobs:  
+    jobs:  
   - job: Build
-    displayName: Build
-    pool:
-      vmImage: $(vmImageName)
-    variables:
-    - group: Release
-    steps:
-
+     displayName: Build
+     pool:
+       vmImage: $(vmImageName)
+     variables:
+     - group: Release
+     steps:
+     
 - task: Maven@3
   displayName: 'Maven pom.xml'
   inputs:
