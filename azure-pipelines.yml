@@ -63,5 +63,4 @@ stages:
         sqlPassword: $(MySqlPassword)
         sqlFile: '$(Build.SourcesDirectory)/CreateMYSQLDB.sql'
 
-      
      
